@@ -1,10 +1,10 @@
 package com.inclusivity;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.money.MonetaryAmount;
+import org.javamoney.moneta.Money;
 
 public class ShoppingCart {
     private final List<Product> entries = new ArrayList();
@@ -17,13 +17,10 @@ public class ShoppingCart {
         return entries.size();
     }
 
-    public BigDecimal calculateTotal() {
-        final Optional<Double> priceSum = entries.stream()
+    public MonetaryAmount calculateTotalExVat() {
+        return entries.stream()
             .map(Product::getPrice)
-            .map(BigDecimal::doubleValue)
-            .reduce((a, b) -> a + b);
+            .reduce(Money.of(0.00, "ZAR"), (subTotal, element) -> subTotal.add(element));
 
-        return priceSum.map(c -> new BigDecimal(c).setScale(2, RoundingMode.UP))
-                    .orElseGet(() -> BigDecimal.ZERO);
     }
 }

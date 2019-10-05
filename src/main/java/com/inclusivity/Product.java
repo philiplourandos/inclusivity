@@ -1,18 +1,15 @@
 package com.inclusivity;
 
-import java.math.BigDecimal;
+import javax.money.MonetaryAmount;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-@Data
+@Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class Product {
     private String name;
 
-    private BigDecimal price;
-
+    private MonetaryAmount price;
 }
