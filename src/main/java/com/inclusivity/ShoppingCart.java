@@ -17,6 +17,10 @@ public class ShoppingCart {
         return entries.size();
     }
 
+    public List<Product> getEntries() {
+        return entries;
+    }
+
     public MonetaryAmount calculateTotalExVat() {
         return entries.stream()
             .map(Product::getPrice)
