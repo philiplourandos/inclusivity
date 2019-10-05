@@ -17,6 +17,8 @@ public class ShoppingCartTest {
     private static final String NAME_AXE = "Axe Deo's";
     private static final MonetaryAmount AXE_AMOUNT = Money.of(99.99, "ZAR");
 
+    private static final double VAT = 12.5;
+
     private static Product dove;
     private static Product axe;
 
@@ -61,6 +63,22 @@ public class ShoppingCartTest {
 
     @Test
     public void when_addingDifferentProductTypesToCartAndApplyingTax_totalShouldReflectTaxApplied() {
-        fail();
+        final ShoppingCart cart = new ShoppingCart();
+        List.of(dove, dove, axe, axe).forEach(c -> cart.add(c));
+
+        assertEquals(4, cart.getItemCount());
+
+        cart.getEntries().stream().limit(2).forEach(c -> {
+            assertEquals(NAME_DOVE, c.getName());
+            assertEquals(DOVE_AMOUNT, c.getPrice());
+        });
+
+        cart.getEntries().stream().skip(2).forEach(c -> {
+            assertEquals(NAME_AXE, c.getName());
+            assertEquals(AXE_AMOUNT, c.getPrice());
+        });
+
+        final MonetaryAmount totalIncludingVat = cart.calculateTotalWithVat(VAT);
+        assertEquals(Money.of(314.96, "ZAR"), totalIncludingVat);
     }
 }
