@@ -4,11 +4,10 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.money.MonetaryAmount;
 import org.javamoney.moneta.Money;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.assertEquals;
 
 public class ShoppingCartTest {
 
@@ -22,7 +21,7 @@ public class ShoppingCartTest {
     private static Product dove;
     private static Product axe;
 
-    @BeforeAll
+    @BeforeClass
     public static void setup() {
         dove = new Product(NAME_DOVE, DOVE_AMOUNT);
         axe = new Product(NAME_AXE, AXE_AMOUNT);
