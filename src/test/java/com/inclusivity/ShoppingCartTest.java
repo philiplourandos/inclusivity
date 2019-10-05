@@ -12,13 +12,18 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ShoppingCartTest {
 
+    private static final String NAME_DOVE = "dove";
+    private static final MonetaryAmount DOVE_AMOUNT = Money.of(39.99, "ZAR");
+    private static final String NAME_AXE = "axe";
+    private static final MonetaryAmount AXE_AMOUNT = Money.of(99.99, "ZAR");
+
     private static Product dove;
     private static Product axe;
 
     @BeforeAll
     public static void setup() {
-        dove = new Product("dove", Money.of(39.99, "ZAR"));
-        axe = new Product("axe", Money.of(99.99, "ZAR"));
+        dove = new Product(NAME_DOVE, DOVE_AMOUNT);
+        axe = new Product(NAME_AXE, AXE_AMOUNT);
     }
 
     @Test
@@ -27,6 +32,10 @@ public class ShoppingCartTest {
         List.of(dove, dove, dove, dove, dove).forEach(c -> cart.add(c));
 
         assertEquals(5, cart.getItemCount());
+        cart.getEntries().stream().forEach(c -> {
+            assertEquals(NAME_DOVE, c.getName());
+            assertEquals(DOVE_AMOUNT, c.getPrice());
+        });
 
         final MonetaryAmount expectedTotal = Money.of(199.95, "ZAR");
         assertEquals(expectedTotal, cart.calculateTotalExVat());
@@ -34,7 +43,20 @@ public class ShoppingCartTest {
 
     @Test
     public void when_shoppingCartHas5ItemsAnd3MoreOfTheSameItemsAdded_itemCountAndTotalShouldBeCorrect() {
-        fail();
+        final ShoppingCart cart = new ShoppingCart();
+        List.of(dove, dove, dove, dove, dove).forEach(c -> cart.add(c));
+
+        assertEquals(5, cart.getItemCount());
+
+        List.of(dove, dove, dove).forEach(c -> cart.add(c));
+
+        assertEquals(8, cart.getItemCount());
+        cart.getEntries().stream().forEach(c -> {
+            assertEquals(NAME_DOVE, c.getName());
+            assertEquals(DOVE_AMOUNT, c.getPrice());
+        });
+
+        assertEquals(Money.of(319.92, "ZAR"), cart.calculateTotalExVat());
     }
 
     @Test
