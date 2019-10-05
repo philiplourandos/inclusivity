@@ -20,3 +20,7 @@ As part of the build process the openclover plugin has been add. Under:
 `target/site/clover` there will be an `index.html` which will have the report.
 
 As such, the plugin is configured to fail if the coverage falls below the expected compliance level
+
+# Junit 4 vs Junit 5
+
+Original Junit 5 was used however with the openclover plugin it was failing with a `NoClassDefFound` error. I had to switch to junit 4 inwhich the code coverage tool was working as expected.
