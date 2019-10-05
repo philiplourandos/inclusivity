@@ -12,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ShoppingCartTest {
 
-    private static final String NAME_DOVE = "dove";
+    private static final String NAME_DOVE = "Dove Soap";
     private static final MonetaryAmount DOVE_AMOUNT = Money.of(39.99, "ZAR");
-    private static final String NAME_AXE = "axe";
+    private static final String NAME_AXE = "Axe Deo's";
     private static final MonetaryAmount AXE_AMOUNT = Money.of(99.99, "ZAR");
 
     private static Product dove;
