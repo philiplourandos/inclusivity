@@ -64,9 +64,13 @@
                 <version>4.4.0</version>
                 <configuration>
                     <targetPercentage>85</targetPercentage>
+                    <generateHtml>true</generateHtml>
+                    <generateXml>true</generateXml>
+                    <jdk>1.9</jdk>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>clover</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>instrument</goal>
@@ -75,6 +79,21 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4.1</version>
+                <configuration>
+                    <rules>
+                        <requireMavenVersion>
+                            <version>[3.0.4,4.0.0)</version>
+                        </requireMavenVersion>
+                        <requireJavaVersion>
+                            <version>11</version>
+                        </requireJavaVersion>
+                    </rules>
+                </configuration>
             </plugin>
         </plugins>
     </build>
