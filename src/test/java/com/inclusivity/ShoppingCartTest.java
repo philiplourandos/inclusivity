@@ -14,7 +14,7 @@ public class ShoppingCartTest {
     @BeforeAll
     public static void setup() {
         dove = Product.builder().name("Dove").price(new BigDecimal("39.99")).build();
-        axe = Product.builder().name("Axe").price(new BigDecimal("99.99"))
+        axe = Product.builder().name("Axe").price(new BigDecimal("99.99")).build();
     }
 
     @Test
